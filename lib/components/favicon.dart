@@ -15,7 +15,7 @@ class Favicon extends StatelessWidget {
       color: CupertinoColors.systemGrey6,
     );
     
-    if (source.iconUrl != null && source.iconUrl.length > 0) {
+    if (source != null && source.iconUrl != null && source.iconUrl.length > 0) {
       return CachedNetworkImage(
         imageUrl: source.iconUrl,
         width: size,
@@ -27,7 +27,7 @@ class Favicon extends StatelessWidget {
         height: size,
         color: CupertinoColors.systemGrey.resolveFrom(context),
         child: Center(child: Text(
-          source.name.length > 0 ? source.name[0] : "?",
+          source != null && source.name.length > 0 ? source.name[0] : "?",
           style: _textStyle,
         )),
       );

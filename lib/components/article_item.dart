@@ -166,7 +166,7 @@ class _ArticleItemState extends State<ArticleItem> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
           Expanded(child: Text(
-            widget.source.name,
+            widget.source != null ? widget.source.name: "Unknow",
             style: _descStyle,
             overflow: TextOverflow.ellipsis,
           )),
