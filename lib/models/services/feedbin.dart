@@ -134,7 +134,7 @@ class FeedbinServiceHandler extends ServiceHandler {
   }
 
   @override
-  Future<List<RSSItem>> fetchItems() async {
+  Future<List<RSSItem>> fetchItems(Set<String> iids) async {
     var page = 1;
     var minId = Utils.syncMaxId;
     var items = [];

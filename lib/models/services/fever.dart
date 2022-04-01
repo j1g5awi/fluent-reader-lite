@@ -120,16 +120,20 @@ class FeverServiceHandler extends ServiceHandler {
   }
 
   @override
-  Future<List<RSSItem>> fetchItems() async {
+  Future<List<RSSItem>> fetchItems(Set<String> iids) async {
     var minId = useInt32 ? 2147483647 : Utils.syncMaxId;
     List<dynamic> response;
     List<dynamic> items = [];
     do {
-      response = (await _fetchAPI(params: "&items&max_id=$minId"))["items"];
+      String params = "&items&max_id=$minId";
+      if (iids != null){
+        params = "&items&with_ids=" + iids.join(",") + ",";
+      }
+      response = (await _fetchAPI(params: params))["items"];
       if (response == null) throw Error();
       for (var i in response) {
         if (i["id"] is String) i["id"] = int.parse(i["id"]);
-        if (i["id"] > lastId) items.add(i);
+        if (i["id"] > lastId || iids != null) items.add(i);
       }
       if (response.length == 0 && minId == Utils.syncMaxId) {
         useInt32 = true;
@@ -138,7 +142,7 @@ class FeverServiceHandler extends ServiceHandler {
       } else {
         minId = response.fold(minId, (m, n) => min<int>(m, n["id"]));
       }
-    } while (minId > lastId &&
+    } while ((minId > lastId || iids != null )&&
         (response == null || response.length >= 50) &&
         items.length < fetchLimit);
     var parsedItems = items.map<RSSItem>((i) {

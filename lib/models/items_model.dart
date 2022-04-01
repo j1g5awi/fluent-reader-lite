@@ -38,14 +38,25 @@ class ItemsModel with ChangeNotifier {
         }
       }
       _items[iid] = item;
-    }
-    if (read != null) updateMap["hasRead"] = read ? 1 : 0;
-    if (starred != null) updateMap["starred"] = starred ? 1 : 0;
-    if (batch != null) {
-      batch.update("items", updateMap, where: "iid = ?", whereArgs: [iid]);
-    } else {
-      notifyListeners();
-      await Global.db.update("items", updateMap, where: "iid = ?", whereArgs: [iid]);
+      if (read != null) updateMap["hasRead"] = read ? 1 : 0;
+      if (starred != null) updateMap["starred"] = starred ? 1 : 0;
+      if (batch != null) {
+        batch.update("items", updateMap, where: "iid = ?", whereArgs: [iid]);
+      } else {
+        notifyListeners();
+        await Global.db.update("items", updateMap, where: "iid = ?", whereArgs: [iid]);
+      }
+    } else if (starred != null) {
+      final item = (await Global.service.fetchItems(Set.from([iid]))).first;
+      if (item != null) {
+        _items[iid] = item;
+      }
+      if (batch != null) {
+        batch.insert("items", item.toMap());
+      } else {
+        notifyListeners();
+        await Global.db.insert("items",  item.toMap());
+      }
     }
   }
 
@@ -76,7 +87,7 @@ class ItemsModel with ChangeNotifier {
   }
 
   Future<void> fetchItems() async {
-    final items = await Global.service.fetchItems();
+    final items = await Global.service.fetchItems(null);
     final batch = Global.db.batch();
     for (var item in items) {
       if (!Global.sourcesModel.has(item.source)) continue;

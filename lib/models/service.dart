@@ -17,7 +17,7 @@ abstract class ServiceHandler {
   Future<bool> validate();
   Future<void> reauthenticate() async { }
   Future<Tuple2<List<RSSSource>, Map<String, List<String>>>> getSources();
-  Future<List<RSSItem>> fetchItems();
+  Future<List<RSSItem>> fetchItems(Set<String> iids);
   Future<Tuple2<Set<String>, Set<String>>> syncItems();
   Future<void> markAllRead(Set<String> sids, DateTime date, bool before);
   Future<void> markRead(RSSItem item);

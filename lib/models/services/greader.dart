@@ -210,7 +210,7 @@ class GReaderServiceHandler extends ServiceHandler {
   }
 
   @override
-  Future<List<RSSItem>> fetchItems() async {
+  Future<List<RSSItem>> fetchItems(Set<String> iids) async {
     List items = [];
     List fetchedItems;
     String continuation;
