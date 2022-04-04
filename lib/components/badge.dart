@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 class Badge extends StatelessWidget {
   Badge(int count, {this.color : CupertinoColors.systemRed, Key key}) :
-    label = count >= 1000 ? "999+" : count.toString(),
-    super(key: key);
+    label = count.toString(), super(key: key);
 
   final String label;
   final CupertinoDynamicColor color;
