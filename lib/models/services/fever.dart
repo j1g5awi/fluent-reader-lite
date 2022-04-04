@@ -133,7 +133,7 @@ class FeverServiceHandler extends ServiceHandler {
       if (response == null) throw Error();
       for (var i in response) {
         if (i["id"] is String) i["id"] = int.parse(i["id"]);
-        if (i["id"] > lastId || iids != null) items.add(i);
+        items.add(i);
       }
       if (response.length == 0 && minId == Utils.syncMaxId) {
         useInt32 = true;
@@ -142,8 +142,7 @@ class FeverServiceHandler extends ServiceHandler {
       } else {
         minId = response.fold(minId, (m, n) => min<int>(m, n["id"]));
       }
-    } while ((minId > lastId || iids != null )&&
-        (response == null || response.length >= 50) &&
+    } while ( (response == null || response.length >= 50) &&
         items.length < fetchLimit);
     var parsedItems = items.map<RSSItem>((i) {
       var dom = parse(i["html"]);

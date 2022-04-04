@@ -199,8 +199,8 @@ class _FeverPageState extends State<FeverPage> {
       MyListTile(
         title: Expanded(child: CupertinoSlider(
           min: 250,
-          max: 1500,
-          divisions: 5,
+          max: 10000,
+          divisions: 39,
           value: _fetchLimit.toDouble(),
           onChanged: (v) { setState(() { _fetchLimit = v.toInt(); }); },
         )),

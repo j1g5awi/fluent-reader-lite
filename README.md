@@ -9,7 +9,10 @@
 
 ### New Features
 
-- Fetch all stared article in fever
+**Only for fever**
+
+- Fetch all stared article
+- set max fetchLimit to 10,000
 
 ### Download
 
