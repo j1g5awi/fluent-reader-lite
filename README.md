@@ -5,6 +5,22 @@
 <p align="center">A simplistic mobile RSS client</p>
 <hr />
 
+## Yet a fork of upstream
+
+### New Features
+
+- Fetch all stared article in fever
+
+### Download
+
+You can only build it from source.
+
+### Something you should know
+
+In fact, I don't know much about writing dart code, so wish you good luck.
+
+---
+
 ## Download
 
 ### iOS
