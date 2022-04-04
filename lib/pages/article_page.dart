@@ -87,7 +87,7 @@ class ArticlePageState extends State<ArticlePage> {
     }
     if (!mounted || currId != requestId) return;
     var h =
-        '<p id="source">${source.name}${(item.creator != null && item.creator.length > 0) ? ' / ' + item.creator : ''}</p>';
+        '<p id="source">${source != null ? source.name : 'Unknow'}${(item.creator != null && item.creator.length > 0) ? ' / ' + item.creator : ''}</p>';
     h += '<p id="title">${item.title}</p>';
     h +=
         '<p id="date">${DateFormat.yMd(Localizations.localeOf(context).toString()).add_Hm().format(item.date)}</p>';
@@ -181,7 +181,7 @@ class ArticlePageState extends State<ArticlePage> {
       builder: (context, tuple, child) {
         var item = tuple.item1;
         var source = tuple.item2;
-        if (_target == null) _target = source.openTarget;
+        if (_target == null) _target = source != null ? source.openTarget : SourceOpenTarget.Local;
         final body = SafeArea(
           child: IndexedStack(
             index: loaded.index,

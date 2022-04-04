@@ -36,7 +36,7 @@ class _ArticleItemState extends State<ArticleItem> {
     if (!widget.item.hasRead) {
       Global.itemsModel.updateItem(widget.item.id, read: true);
     }
-    if (widget.source.openTarget == SourceOpenTarget.External) {
+    if (widget.source != null && widget.source.openTarget == SourceOpenTarget.External) {
       launch(widget.item.link, forceSafariVC: false, forceWebView: false);
     } else {
       var isSource = Navigator.of(context).canPop();
