@@ -47,11 +47,9 @@ class SourcesModel with ChangeNotifier {
       cloned.unreadCount = 0;
     }
     for (var row in rows) {
-      if (row["source"] != "0"){
       _sources[row["source"]].unreadCount = row["COUNT(iid)"];
-      }
-    notifyListeners();
     }
+    notifyListeners();
   }
 
   void updateUnreadCount(String sid, int diff) {
