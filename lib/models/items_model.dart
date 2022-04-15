@@ -46,7 +46,7 @@ class ItemsModel with ChangeNotifier {
         notifyListeners();
         await Global.db.update("items", updateMap, where: "iid = ?", whereArgs: [iid]);
       }
-    } else if (starred != null) {
+    } else if (starred != null && iid != "") {
       final item = (await Global.service.fetchItems(Set.from([iid]))).first;
       if (item != null) {
         _items[iid] = item;
